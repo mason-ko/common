@@ -1,4 +1,4 @@
-package main
+package recursive_move
 
 import "testing"
 
