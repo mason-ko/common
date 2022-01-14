@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func recursive(rootDir, targetDir string, isRoot bool){
+func MoveRecursive(rootDir, targetDir string, isRoot bool) {
 	dir, err := ioutil.ReadDir(targetDir)
 	if err != nil {
 		panic(err)
@@ -18,7 +18,7 @@ func recursive(rootDir, targetDir string, isRoot bool){
 	for _, v := range dir {
 		if v.IsDir() {
 			fmt.Println(v.Name())
-			recursive(rootDir, targetDir + "/" + v.Name(), false)
+			MoveRecursive(rootDir, targetDir+"/"+v.Name(), false)
 		} else if !isRoot {
 			if checkSize < v.Size() {
 				checkSize = v.Size()
@@ -29,6 +29,17 @@ func recursive(rootDir, targetDir string, isRoot bool){
 
 	if checkSize != 0 {
 		//move
-		os.Rename(targetDir +"/" + checkFile, rootDir + "/" + checkFile)
+		os.Rename(targetDir+"/"+checkFile, rootDir+"/"+checkFile)
+	}
+}
+
+func MoveSubtitle(targetDir string) {
+	dir, err := ioutil.ReadDir(targetDir)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, v := range dir {
+		fmt.Println(v)
 	}
 }
